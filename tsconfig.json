@@ -1,0 +1,30 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "engines": {
+    "node": ">=12.18.1"
+  },
+  "dependencies": {
+    "form-data": "^3.0.0",
+    "node-fetch": "^2.6.0",
+    "wretch": "^1.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "@types/node-fetch": "^2.5.7",
+    "typescript": "^3.9.6"
+  },
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "build",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ],
+  "lib": [
+    "ES2019",
+    "dom"
+  ]
+}
