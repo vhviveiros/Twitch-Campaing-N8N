@@ -1,14 +1,17 @@
 {
-  "name": "n8n-nodes-base.twitch-campaign-node",
-  "version": "0.2.3",
+  "name": "n8n-nodes-twitch-campaign",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "files": [
     "dist"
   ],
   "n8n": {
+    "credentials": [
+      "dist/credentials/TwitchCampaignNode.credentials.ts"
+    ],
     "nodes": [
-      "dist/nodes/TwitchCampaignNode/TwitchCampaignNode.node.ts"
+      "dist/nodes/TwitchCampaignNode/TwitchCampaignNode.node.js"
     ]
   },
   "license": "Apache-2.0",
@@ -18,9 +21,9 @@
   "scripts": {
     "build": "tsc && gulp build:icons",
     "dev": "tsc --watch",
-    "format": "prettier dist/nodes --write",
-    "lint": "tslint -p tsconfig.json -c tslint.json && eslint dist/nodes package.json",
-    "lintfix": "tslint --fix -p tsconfig.json -c tslint.json && eslint dist/nodes package.json --fix",
+    "format": "prettier nodes credentials --write",
+    "lint": "tslint -p tsconfig.json -c tslint.json && eslint nodes credentials package.json",
+    "lintfix": "tslint --fix -p tsconfig.json -c tslint.json && eslint nodes credentials --fix",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
