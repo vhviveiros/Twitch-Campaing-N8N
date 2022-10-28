@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DataFetch = void 0;
 class DataFetch {
-    async fetch() {
+    async fetch(cookies) {
         require('chromedriver');
         const webdriver = require('selenium-webdriver');
         const chrome = require('selenium-webdriver/chrome');
@@ -13,8 +13,7 @@ class DataFetch {
             .setChromeOptions(options)
             .build();
         try {
-            const cookies = require('./cookies.json');
-            for (const c of cookies) {
+            for (const c of JSON.parse(cookies)) {
                 driver.manage().addCookie(c);
             }
             await driver.get('https://www.twitch.tv/drops/campaigns');

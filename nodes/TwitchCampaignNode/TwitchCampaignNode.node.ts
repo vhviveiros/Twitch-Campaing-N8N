@@ -1,9 +1,11 @@
 import { DataFetch } from './DataFetch';
 import { IExecuteFunctions } from 'n8n-core';
 import {
+	IDataObject,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
+	JsonObject,
 	NodeOperationError,
 } from 'n8n-workflow';
 
@@ -24,23 +26,27 @@ export class TwitchCampaignNode implements INodeType {
 			// Node properties which the user gets displayed and
 			// can change on the node.
 			{
-				displayName: 'Resource',
-				name: 'resource',
+				displayName: 'Cookies',
+				name: 'cookies',
 				type: 'string',
 				default: '',
-				placeholder: 'Placeholder value',
-				description: 'The description text',
+				placeholder: 'Cookies from twitch.com',
+				description: 'Paste here your cookies from twitch or link from a previous variables',
 			},
 		],
 	};
 
-	// The function below is responsible for actually doing whatever this node
-	// is supposed to do. In this case, we're just appending the `myString` property
-	// with whatever the user has entered.
-	// You can make async calls and use `await`.
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-		const result = await new DataFetch().fetch();
-		console.log(result);
+		const input = this.getNodeParameter("cookies", 0) as string
+		var result: JsonObject[] = []
+
+		//Response can be empty, so we will try 3 times to get something
+		for (let i = 0; i <= 3; ++i) {
+			result = await new DataFetch().fetch(input);
+			if (result.length > 0)
+				break
+		}
+
 		return [this.helpers.returnJsonArray(result)];
 	}
 }

@@ -18,19 +18,24 @@ class TwitchCampaignNode {
             outputs: ['main'],
             properties: [
                 {
-                    displayName: 'Resource',
-                    name: 'resource',
+                    displayName: 'Cookies',
+                    name: 'cookies',
                     type: 'string',
-                    default: '',
-                    placeholder: 'Placeholder value',
-                    description: 'The description text',
+                    default: '{{ $json["cookies"] }}',
+                    placeholder: 'Cookies from twitch.com',
+                    description: 'Paste here your cookies from twitch or link from a previous variables',
                 },
             ],
         };
     }
     async execute() {
-        const result = await new DataFetch_1.DataFetch().fetch();
-        console.log(result);
+        const input = this.getNodeParameter("cookies", 0);
+        var result = [];
+        for (let i = 0; i <= 3; ++i) {
+            result = await new DataFetch_1.DataFetch().fetch(input);
+            if (result.length > 0)
+                break;
+        }
         return [this.helpers.returnJsonArray(result)];
     }
 }

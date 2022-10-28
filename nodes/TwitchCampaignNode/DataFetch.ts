@@ -2,7 +2,7 @@
 import { JsonObject } from 'n8n-workflow';
 
 export class DataFetch {
-	async fetch(): Promise<JsonObject[]> {
+	async fetch(cookies: string): Promise<JsonObject[]> {
 		require('chromedriver');
 		const webdriver = require('selenium-webdriver');
 		const chrome = require('selenium-webdriver/chrome');
@@ -14,8 +14,7 @@ export class DataFetch {
 			.setChromeOptions(options)
 			.build();
 		try {
-			const cookies = require('./cookies.json');
-			for (const c of cookies) {
+			for (const c of JSON.parse(cookies)) {
 				driver.manage().addCookie(c);
 			}
 			await driver.get('https://www.twitch.tv/drops/campaigns');
