@@ -1,30 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CampaignNode = void 0;
+exports.TwitchCampaignNode = void 0;
 const DataFetch_1 = require("./DataFetch");
-class CampaignNode {
+class TwitchCampaignNode {
     constructor() {
         this.description = {
             displayName: 'Twitch Campaigns',
             name: 'twitchCampaigns',
             icon: 'file:twitch.svg',
-            version: 1,
             group: ['transform'],
+            version: 1,
             description: 'Obtains a list of current twitch campaigns.',
             defaults: {
                 name: 'Twitch Campaigns Node',
-                color: '#BF40BF',
             },
+            inputs: ['main'],
+            outputs: ['main'],
             properties: [
                 {
                     displayName: 'Resource',
                     name: 'resource',
                     type: 'string',
-                    default: 'campaign',
+                    default: '',
+                    placeholder: 'Placeholder value',
+                    description: 'The description text',
                 },
             ],
-            inputs: ['main'],
-            outputs: ['main'],
         };
     }
     async execute() {
@@ -33,5 +34,5 @@ class CampaignNode {
         return [this.helpers.returnJsonArray(result)];
     }
 }
-exports.CampaignNode = CampaignNode;
+exports.TwitchCampaignNode = TwitchCampaignNode;
 //# sourceMappingURL=TwitchCampaignNode.node.js.map
