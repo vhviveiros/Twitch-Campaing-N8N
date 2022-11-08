@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { JsonObject } from 'n8n-workflow';
+import { JsonObject } from 'n8n-workflow'
 
 export class DataFetch {
-	async fetch(cookies: string): Promise<JsonObject[]> {
+	async fetch(cookies: any): Promise<JsonObject[]> {
 		require('chromedriver');
 		const webdriver = require('selenium-webdriver');
 		const chrome = require('selenium-webdriver/chrome');
@@ -14,7 +14,7 @@ export class DataFetch {
 			.setChromeOptions(options)
 			.build();
 		try {
-			for (const c of JSON.parse(cookies)) {
+			for (const c of cookies) {
 				driver.manage().addCookie(c);
 			}
 			await driver.get('https://www.twitch.tv/drops/campaigns');
@@ -26,18 +26,21 @@ export class DataFetch {
 					"//h4/preceding::div[contains(@class, 'Layout-sc-nxg1ff-0 ScAccordionHeaderContents-sc-ja4t0c-0')]",
 				),
 			)) {
-				const result = await e.getText();
-				const resultJson = this.generateJson(result);
-
-				returnResult.push(resultJson);
+				const result = await e.getAttribute("innerText")
+				const resultJson = this.generateJson(result)
+				console.log(resultJson)
+				returnResult.push(resultJson)
 			}
-			return returnResult;
+			return returnResult
 		} finally {
-			await driver.quit();
+			driver.close()
+			driver.quit()
 		}
 	}
 
 	private generateJson(response: string): JsonObject {
+		const removeEmptyLines = (str: string) => str.split(/\r?\n/).filter((line) => line.trim() !== '').join('\n')
+		response = removeEmptyLines(response)
 		let resultSplit = ['', '', ''];
 		let periodSplit = ['', ''];
 

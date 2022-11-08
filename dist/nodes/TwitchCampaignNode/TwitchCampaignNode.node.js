@@ -21,7 +21,7 @@ class TwitchCampaignNode {
                     displayName: 'Cookies',
                     name: 'cookies',
                     type: 'string',
-                    default: '{{ $json["cookies"] }}',
+                    default: '',
                     placeholder: 'Cookies from twitch.com',
                     description: 'Paste here your cookies from twitch or link from a previous variables',
                 },

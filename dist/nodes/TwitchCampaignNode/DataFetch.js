@@ -27,7 +27,8 @@ class DataFetch {
             return returnResult;
         }
         finally {
-            await driver.quit();
+            driver.close();
+            driver.quit();
         }
     }
     generateJson(response) {
