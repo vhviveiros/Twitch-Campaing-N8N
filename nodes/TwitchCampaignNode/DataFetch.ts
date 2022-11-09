@@ -28,7 +28,6 @@ export class DataFetch {
 			)) {
 				const result = await e.getAttribute("innerText")
 				const resultJson = this.generateJson(result)
-				console.log(resultJson)
 				returnResult.push(resultJson)
 			}
 			return returnResult
@@ -47,9 +46,7 @@ export class DataFetch {
 		try {
 			resultSplit = response.split('\n');
 			periodSplit = resultSplit[2].split(' - ');
-		} catch {
-			console.log('nothing');
-		}
+		} catch { }
 
 		const resultJson = {
 			game: resultSplit[0],
