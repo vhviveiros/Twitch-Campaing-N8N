@@ -15,12 +15,13 @@ class DataFetch {
         try {
             for (const c of JSON.parse(cookies)) {
                 driver.manage().addCookie(c);
+                console.log("\nCookie: " + c + "\n");
             }
             await driver.get('https://www.twitch.tv/drops/campaigns');
             await driver.navigate().refresh();
             const returnResult = [];
             for (const e of await driver.findElements(webdriver.By.xpath("//h4/preceding::div[contains(@class, 'Layout-sc-nxg1ff-0 ScAccordionHeaderContents-sc-ja4t0c-0')]"))) {
-                const result = await e.getText();
+                const result = await e.getAttribute("innerText");
                 const resultJson = this.generateJson(result);
                 returnResult.push(resultJson);
             }
@@ -32,15 +33,15 @@ class DataFetch {
         }
     }
     generateJson(response) {
+        const removeEmptyLines = (str) => str.split(/\r?\n/).filter((line) => line.trim() !== '').join('\n');
+        response = removeEmptyLines(response);
         let resultSplit = ['', '', ''];
         let periodSplit = ['', ''];
         try {
             resultSplit = response.split('\n');
             periodSplit = resultSplit[2].split(' - ');
         }
-        catch {
-            console.log('nothing');
-        }
+        catch { }
         const resultJson = {
             game: resultSplit[0],
             distributor: resultSplit[1],

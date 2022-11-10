@@ -1,5 +1,5 @@
-import { DataFetch } from './DataFetch';
-import { IExecuteFunctions } from 'n8n-core';
+import { DataFetch } from './DataFetch'
+import { IExecuteFunctions } from 'n8n-core'
 import {
 	IDataObject,
 	INodeExecutionData,
@@ -7,7 +7,7 @@ import {
 	INodeTypeDescription,
 	JsonObject,
 	NodeOperationError,
-} from 'n8n-workflow';
+} from 'n8n-workflow'
 
 export class TwitchCampaignNode implements INodeType {
 	description: INodeTypeDescription = {
@@ -34,7 +34,7 @@ export class TwitchCampaignNode implements INodeType {
 				description: 'Paste here your cookies from twitch or link from a previous variables',
 			},
 		],
-	};
+	}
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const input = this.getNodeParameter("cookies", 0) as string
@@ -42,11 +42,11 @@ export class TwitchCampaignNode implements INodeType {
 
 		//Response can be empty, so we will try 3 times to get something
 		for (let i = 0; i <= 3; ++i) {
-			result = await new DataFetch().fetch(input);
+			result = await new DataFetch().fetch(input)
 			if (result.length > 0)
 				break
 		}
 
-		return [this.helpers.returnJsonArray(result)];
+		return [this.helpers.returnJsonArray(result)]
 	}
 }
