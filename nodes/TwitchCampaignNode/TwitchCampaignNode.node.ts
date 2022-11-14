@@ -42,7 +42,7 @@ export class TwitchCampaignNode implements INodeType {
 
 		//Response can be empty, so we will try 3 times to get something
 		for (let i = 0; i <= 3; ++i) {
-			result = await new DataFetch().fetch(input)
+			result = await new DataFetch().fetch(JSON.parse(input))
 			if (result.length > 0)
 				break
 		}
