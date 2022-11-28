@@ -3,19 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DataFetch = void 0;
 class DataFetch {
     async fetch(cookies) {
-        require('chromedriver');
         const webdriver = require('selenium-webdriver');
-        const chrome = require('selenium-webdriver/chrome');
-        const options = new chrome.Options();
-        options.addArguments(['--headless']);
+        const firefox = require('selenium-webdriver/firefox');
+        const options = new firefox.Options();
+        options.addArguments('--headless');
         const driver = new webdriver.Builder()
-            .forBrowser('chrome')
-            .setChromeOptions(options)
+            .forBrowser('firefox')
+            .setFirefoxOptions(options)
             .build();
         try {
-            for (const c of JSON.parse(cookies)) {
+            for (const c of cookies) {
                 driver.manage().addCookie(c);
-                console.log("\nCookie: " + c + "\n");
             }
             await driver.get('https://www.twitch.tv/drops/campaigns');
             await driver.navigate().refresh();
@@ -28,7 +26,6 @@ class DataFetch {
             return returnResult;
         }
         finally {
-            driver.close();
             driver.quit();
         }
     }

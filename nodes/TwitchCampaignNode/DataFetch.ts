@@ -22,7 +22,7 @@ export class DataFetch {
 
 			for (const e of await driver.findElements(
 				webdriver.By.xpath(
-					"//h4/preceding::div[contains(@class, 'Layout-sc-nxg1ff-0 ScAccordionHeaderContents-sc-ja4t0c-0')]",
+					"//h4/preceding::div[contains(@class, 'Layout-sc') and contains(@class, 'ScAccordionHeaderContents-sc')]",
 				),
 			)) {
 				const result = await e.getAttribute("innerText")

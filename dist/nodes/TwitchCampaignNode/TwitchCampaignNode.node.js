@@ -32,7 +32,7 @@ class TwitchCampaignNode {
         const input = this.getNodeParameter("cookies", 0);
         var result = [];
         for (let i = 0; i <= 3; ++i) {
-            result = await new DataFetch_1.DataFetch().fetch(input);
+            result = await new DataFetch_1.DataFetch().fetch(JSON.parse(input));
             if (result.length > 0)
                 break;
         }
