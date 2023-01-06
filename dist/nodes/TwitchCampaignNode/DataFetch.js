@@ -18,7 +18,7 @@ class DataFetch {
             await driver.get('https://www.twitch.tv/drops/campaigns');
             await driver.navigate().refresh();
             const returnResult = [];
-            for (const e of await driver.findElements(webdriver.By.xpath("//h4/preceding::div[contains(@class, 'Layout-sc-nxg1ff-0 ScAccordionHeaderContents-sc-ja4t0c-0')]"))) {
+            for (const e of await driver.findElements(webdriver.By.xpath("//h4/preceding::div[contains(@class, 'Layout-sc') and contains(@class, 'ScAccordionHeaderContents-sc')]"))) {
                 const result = await e.getAttribute("innerText");
                 const resultJson = this.generateJson(result);
                 returnResult.push(resultJson);

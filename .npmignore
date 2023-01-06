@@ -1,2 +1,4 @@
-test.ts
+nodes/test.*
+test.*
+nodes/cookies.json
 cookies.json
